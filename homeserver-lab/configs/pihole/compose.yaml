@@ -1,0 +1,21 @@
+# Pi-hole DNS filter
+# Location on the server: ~/pihole/compose.yaml
+# Start: sudo docker compose up -d
+# Set the web password afterwards: sudo docker exec -it pihole pihole setpassword
+services:
+  pihole:
+    image: pihole/pihole:latest
+    container_name: pihole
+    ports:
+      # Published only on the LAN address:
+      # - avoids the port-53 conflict with systemd-resolved (127.0.0.53 / 127.0.0.54)
+      # - Docker bypasses UFW, so binding is the real exposure control
+      - "10.0.0.78:53:53/tcp"
+      - "10.0.0.78:53:53/udp"
+      - "10.0.0.78:8080:80/tcp"
+    environment:
+      TZ: "America/Santo_Domingo"
+      FTLCONF_dns_listeningMode: "all"   # required when running behind Docker's bridge network
+    volumes:
+      - ./etc-pihole:/etc/pihole
+    restart: unless-stopped

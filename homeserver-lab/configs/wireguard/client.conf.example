@@ -1,0 +1,14 @@
+# Client config (e.g. /etc/wireguard/clients/iphone.conf) - TEMPLATE, no real keys
+# Delivered to the phone as a QR code, scanned straight from the terminal:
+#   sudo qrencode -t ansiutf8 < /etc/wireguard/clients/iphone.conf
+# Never screenshot or share the QR: it contains the client's private key.
+
+[Interface]
+PrivateKey = <CLIENT_PRIVATE_KEY>
+Address = 10.8.0.2/32
+
+[Peer]
+PublicKey = <SERVER_PUBLIC_KEY>
+Endpoint = <PUBLIC_IP_OR_DDNS_NAME>:51820
+AllowedIPs = 10.8.0.0/24          # split tunnel: only lab traffic goes through the VPN
+PersistentKeepalive = 25

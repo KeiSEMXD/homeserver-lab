@@ -1,0 +1,19 @@
+# /etc/wireguard/wg0.conf (server) - TEMPLATE, no real keys
+# Keys are generated with umask 077:
+#   wg genkey | sudo tee server.key | wg pubkey | sudo tee server.pub
+# Start: sudo systemctl enable --now wg-quick@wg0
+
+[Interface]
+Address = 10.8.0.1/24
+ListenPort = 51820
+PrivateKey = <SERVER_PRIVATE_KEY>
+
+[Peer]
+# iphone - full access (SSH/Samba allowed by UFW for this address only)
+PublicKey = <IPHONE_PUBLIC_KEY>
+AllowedIPs = 10.8.0.2/32
+
+# [Peer]
+# # friend - Jellyfin only
+# PublicKey = <FRIEND_PUBLIC_KEY>
+# AllowedIPs = 10.8.0.3/32

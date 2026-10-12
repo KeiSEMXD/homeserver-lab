@@ -1,0 +1,6 @@
+# Line appended to /etc/fstab (back up first: sudo cp /etc/fstab /etc/fstab.bak)
+# Get the UUID with: sudo blkid -s UUID -o value /dev/sdb1
+# Test without rebooting: sudo umount /mnt/media && sudo systemctl daemon-reload && sudo mount -a
+#
+# <device>               <mountpoint>  <type>  <options>         <dump> <pass>
+UUID=<partition-uuid>    /mnt/media    ext4    defaults,nofail   0      2
